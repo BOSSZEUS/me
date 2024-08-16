@@ -8,6 +8,23 @@ The Me API is a Django-based backend designed to manage personal development tas
 - **User Management:** Manage personal data such as tasks, skills, qualities, and goals.
 - **AI Integration:** Future integration with an AI assistant for task and calendar management.
 
+## User Roles & Permissions
+
+The API has been configured with role-based access control to secure different parts of the application:
+
+- **Admin-Only Endpoints:**
+  - **Person Management:** Only admins can manage users via the `/api/persons/` endpoint.
+  
+- **User-Only Endpoints:**
+  - **Skills, Qualities, Goals, Tasks Management:** Authenticated users can manage their own data via the `/api/skills/`, `/api/qualities/`, `/api/goals/`, and `/api/tasks/` endpoints.
+
+### Permission Configuration
+
+- **Admin:** Full access to person management.
+- **Authenticated Users:** Access to personal skills, qualities, goals, and tasks.
+
+This ensures that sensitive data is properly secured and only accessible by those with the correct privileges.
+
 ## Endpoints
 | Endpoint        | Method | Description                  |
 |-----------------|--------|------------------------------|
