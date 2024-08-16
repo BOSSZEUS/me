@@ -69,7 +69,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # For development only, adjust in production
-
+# CORS_ALLOWED_ORIGINS = [
+#     "https://yourfrontendapp.com",
+#     "http://localhost:3000",  # For local development
+# ]
 ROOT_URLCONF = 'me.urls'
 
 TEMPLATES = [

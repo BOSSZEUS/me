@@ -1,12 +1,13 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Person, Skill, Qualities, Goals, Task
 from .serializers import PersonSerializer, SkillSerializer, QualitiesSerializer, GoalsSerializer, TaskSerializer
 
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
+
 
 class SkillViewSet(viewsets.ModelViewSet):
     queryset = Skill.objects.all()
