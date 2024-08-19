@@ -101,12 +101,12 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'me',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':  'me_api',
+        'USER': 'postgres',
         'PASSWORD': DATABASE_PASSWORD,
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',  
+        'PORT': '5432',  
     }
 }
 

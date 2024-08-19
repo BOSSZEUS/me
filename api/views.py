@@ -1,54 +1,41 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from .models import Person, Skill, Qualities, Goals, Task
-from .serializers import PersonSerializer, SkillSerializer, QualitiesSerializer, GoalsSerializer, TaskSerializer
+from .models import Person, Skill, Quality, Goal, Task
+from .serializers import PersonSerializer, SkillSerializer, QualitySerializer, GoalSerializer, TaskSerializer
 
+# BaseViewSet provides a common implementation for the 'get_queryset' method.
+class BaseViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]  # Requires users to be authenticated
+
+    def get_queryset(self):
+        # This method customizes the queryset based on the 'person' query parameter.
+        person_id = self.request.query_params.get('person')
+        if person_id:
+            return self.queryset.filter(person_id=person_id)  # Filter by person_id if provided
+        return super().get_queryset()  # Return the default queryset otherwise
+
+# ViewSet for the Person model.
 class PersonViewSet(viewsets.ModelViewSet):
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
-    permission_classes = [IsAdminUser]
+    queryset = Person.objects.all()  # Retrieves all Person objects
+    serializer_class = PersonSerializer  # Specifies the serializer class
+    permission_classes = [IsAdminUser]  # Only admins can access this view
 
+# ViewSet for the Skill model.
+class SkillViewSet(BaseViewSet):
+    queryset = Skill.objects.all()  # Retrieves all Skill objects
+    serializer_class = SkillSerializer  # Specifies the serializer class
 
-class SkillViewSet(viewsets.ModelViewSet):
-    queryset = Skill.objects.all()
-    serializer_class = SkillSerializer
-    permission_classes = [IsAuthenticated]
+# ViewSet for the Quality model.
+class QualityViewSet(BaseViewSet):
+    queryset = Quality.objects.all()  # Retrieves all Quality objects
+    serializer_class = QualitySerializer  # Specifies the serializer class
 
-    def get_queryset(self):
-        person_id = self.request.query_params.get('person')
-        if person_id:
-            return Skill.objects.filter(person_id=person_id)
-        return super().get_queryset()
+# ViewSet for the Goal model.
+class GoalViewSet(BaseViewSet):
+    queryset = Goal.objects.all()  # Retrieves all Goal objects
+    serializer_class = GoalSerializer  # Specifies the serializer class
 
-class QualitiesViewSet(viewsets.ModelViewSet):
-    queryset = Qualities.objects.all()
-    serializer_class = QualitiesSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        person_id = self.request.query_params.get('person')
-        if person_id:
-            return Qualities.objects.filter(person_id=person_id)
-        return super().get_queryset()
-
-class GoalsViewSet(viewsets.ModelViewSet):
-    queryset = Goals.objects.all()
-    serializer_class = GoalsSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        person_id = self.request.query_params.get('person')
-        if person_id:
-            return Goals.objects.filter(person_id=person_id)
-        return super().get_queryset()
-
-class TaskViewSet(viewsets.ModelViewSet):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        person_id = self.request.query_params.get('person')  
-        if person_id:
-            return Task.objects.filter(person_id=person_id)
-        return super().get_queryset()
+# ViewSet for the Task model.
+class TaskViewSet(BaseViewSet):
+    queryset = Task.objects.all()  # Retrieves all Task objects
+    serializer_class = TaskSerializer  # Specifies the serializer class
