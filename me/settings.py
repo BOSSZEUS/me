@@ -80,8 +80,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'me.wsgi.application'
 
 # Database
+# Database
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:<DATABASE_PASSWORD>@localhost:5432/me_api')
+    'default': dj_database_url.config(default='postgres://postgres:@localhost:5432/me_api')
 }
 
 # Password validation
