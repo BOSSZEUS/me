@@ -9,43 +9,37 @@ The Me API is a Django-based backend designed to manage personal development tas
 - **AI Integration:** Future integration with an AI assistant for task and calendar management.
 
 ## User Roles & Permissions
-
-The API has been configured with role-based access control to secure different parts of the application:
-
+The API is configured with role-based access control:
 - **Admin-Only Endpoints:**
-  - **Person Management:** Only admins can manage users via the `/api/persons/` endpoint.
-  
+  - Person Management: Only admins can manage users via the `/api/persons/` endpoint.
 - **User-Only Endpoints:**
-  - **Skills, Qualities, Goals, Tasks Management:** Authenticated users can manage their own data via the `/api/skills/`, `/api/qualities/`, `/api/goals/`, and `/api/tasks/` endpoints.
+  - Skills, Qualities, Goals, Tasks Management: Authenticated users can manage their own data via the `/api/skills/`, `/api/qualities/`, `/api/goals/`, and `/api/tasks/` endpoints.
 
 ### Permission Configuration
-
 - **Admin:** Full access to person management.
 - **Authenticated Users:** Access to personal skills, qualities, goals, and tasks.
 
-This ensures that sensitive data is properly secured and only accessible by those with the correct privileges.
-
 ## Endpoints
-| Endpoint        | Method | Description                  |
-|-----------------|--------|------------------------------|
-| `/api/persons/` | GET    | List all persons             |
-| `/api/skills/`  | GET    | List all skills              |
-| `/api/qualities/` | GET  | List all qualities           |
-| `/api/goals/`   | GET    | List all goals               |
-| `/api/tasks/`   | GET    | List all tasks               |
+| Endpoint           | Method | Description              |
+|--------------------|--------|--------------------------|
+| `/api/persons/`    | GET    | List all persons         |
+| `/api/skills/`     | GET    | List all skills          |
+| `/api/qualities/`  | GET    | List all qualities       |
+| `/api/goals/`      | GET    | List all goals           |
+| `/api/tasks/`      | GET    | List all tasks           |
 
 ## Technologies Used
 - **Django**: Backend framework.
 - **Django REST Framework**: API creation and management.
 - **Django Simple JWT**: JWT authentication.
 - **CORS Headers**: To manage Cross-Origin Resource Sharing.
+- **PostgreSQL**: Database backend.
 
 ## Installation
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/me-api.git
    cd me-api
-
 
 Set up the virtual environment:
 python3 -m venv venv
