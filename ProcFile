@@ -1,1 +1,3 @@
-web: gunicorn me.wsgi --log-file -
+release: python manage.py migrate
+web: gunicorn me.wsgi --workers 3 --log-file - --access-logfile - --error-logfile -
+worker: python manage.py rqworker
