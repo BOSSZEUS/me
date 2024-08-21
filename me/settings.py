@@ -79,10 +79,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'me.wsgi.application'
 
-# Database
-# Database
+# Database configuration using dj_database_url
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:@localhost:5432/me_api')
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
 # Password validation
@@ -111,7 +110,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Activate Django-Heroku.
+# Activate Django-Heroku. Should be at the end to apply Heroku-specific settings.
 django_heroku.settings(locals())
 
 # Default primary key field type
