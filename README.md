@@ -38,7 +38,7 @@ The API is configured with role-based access control:
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/me-api.git
+   git clone https://github.com/BOSSZEUS/me.git
    cd me-api
 
 Set up the virtual environment:
