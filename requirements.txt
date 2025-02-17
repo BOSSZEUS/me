@@ -64,3 +64,4 @@ tzdata==2023.3
 urllib3==2.2.2
 watchdog==4.0.1
 whitenoise==6.7.0
+  
