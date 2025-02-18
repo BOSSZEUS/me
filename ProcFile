@@ -1,3 +1,4 @@
+// filepath: /C:/Users/jorda/OneDrive/Desktop/code/Django/me/Procfile
 release: python manage.py migrate
-web: gunicorn me.wsgi:application --workers 3 --log-file - --access-logfile - --error-logfile -
+web: gunicorn me.wsgi:application --workers ${WEB_CONCURRENCY:-3}
 worker: python manage.py rqworker
