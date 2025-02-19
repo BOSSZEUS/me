@@ -40,18 +40,24 @@ The API is configured with role-based access control:
    ```bash
    git clone https://github.com/BOSSZEUS/me.git
    cd me-api
+   ```
 
-Set up the virtual environment:
-python3 -m venv venv
-source venv/bin/activate
+2. Set up the virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Install dependencies:
-pip install -r requirements.txt
-Set up environment variables:
+4. Set up environment variables:
+   Add `SECRET_KEY`, `DATABASE_URL`, and other sensitive data in the `.env` file.
 
-Add SECRET_KEY, DATABASE_URL, and other sensitive data in the .env file.
-
-Run migrations and start the server:
-python manage.py migrate
-python manage.py runserver
+5. Run migrations and start the server:
+   ```bash
+   python manage.py migrate
+   python manage.py runserver
+   ```
