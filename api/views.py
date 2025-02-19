@@ -1,24 +1,35 @@
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework import viewsets, permissions, generics
+from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer
 from .models import Person, Skill, Quality, Goal, Task
 from .serializers import PersonSerializer, SkillSerializer, QualitySerializer, GoalSerializer, TaskSerializer
 
-# BaseViewSet provides a common implementation for the 'get_queryset' method.
-class BaseViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]  # Requires users to be authenticated
+# API view for user registration
+class CreateUserView(generics.CreateAPIView):
+    queryset = User.objects.all()  # Define the queryset to retrieve all users
+    serializer_class = UserSerializer  # Specify the serializer class to handle user data
+    permission_classes = [permissions.AllowAny]  # Allow anyone to register without authentication
 
-    def get_queryset(self):
-        # This method customizes the queryset based on the 'person' query parameter.
-        person_id = self.request.query_params.get('person')
-        if person_id:
-            return self.queryset.filter(person_id=person_id)  # Filter by person_id if provided
-        return super().get_queryset()  # Return the default queryset otherwise
+
+    # Base ViewSet class to be inherited by other viewsets.
+    # This class ensures that only authenticated users can access the data
+    # and restricts the data to the logged-in user's related person.
+    class BaseViewSet(viewsets.ModelViewSet):
+        permission_classes = [IsAuthenticated]  # Only authenticated users can access the viewset
+
+        def get_queryset(self):
+            # Override the get_queryset method to filter the queryset
+            # to only include objects related to the logged-in user's person.
+            return self.queryset.filter(person__user=self.request.user)
 
 # ViewSet for the Person model.
 class PersonViewSet(viewsets.ModelViewSet):
-    queryset = Person.objects.all()  # Retrieves all Person objects
-    serializer_class = PersonSerializer  # Specifies the serializer class
-    permission_classes = [IsAdminUser]  # Only admins can access this view
+    serializer_class = PersonSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Person.objects.filter(user=self.request.user)  # Only return the logged-in user’s Person
 
 # ViewSet for the Skill model.
 class SkillViewSet(BaseViewSet):

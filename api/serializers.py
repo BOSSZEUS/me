@@ -1,5 +1,20 @@
 from rest_framework import serializers
 from .models import Person, Skill, Quality, Goal, Task
+from django.contrib.auth.models import User
+
+
+# Serializer for User model to handle user registration and serialization
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)  # Password should not be readable in responses
+
+    class Meta:
+        model = User  # Specify the User model for serialization
+        fields = ['id', 'username', 'password', 'email']  # Fields included in serialization
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)  # Create user with validated data
+        Person.objects.create(user=user, name=user.username)  # Auto-create Person instance linked to the user
+        return user  # Return the newly created user instance
 
 # BaseSerializer defines the common fields for Skill, Quality, and Goal serializers.
 class BaseSerializer(serializers.ModelSerializer):
